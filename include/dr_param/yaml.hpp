@@ -39,7 +39,7 @@ struct YamlError {
 	std::vector<YamlNodeDescription> trace;
 
 	/// Create a new YAML error.
-	explicit YamlError(std::string message, std::vector<YamlNodeDescription> node_path = {});
+	explicit YamlError(std::string message, std::vector<YamlNodeDescription> trace = {});
 
 	/// Append a node description to the trace.
 	YamlError  & appendTrace(YamlNodeDescription description) &;
