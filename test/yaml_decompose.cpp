@@ -7,10 +7,10 @@
 #include "decompose_macros.hpp"
 
 namespace dr {
-	struct Struct {
-		int a;
-		bool b;
-		std::string c;
+	struct Struct {        //NOLINT
+		int a;         //NOLINT
+		bool b;        //NOLINT
+		std::string c; //NOLINT
 	};
 
 	class Class {
@@ -18,9 +18,9 @@ namespace dr {
 
 	public:
 		int       & member()       { return member_; }
-		int const & member() const { return member_; }
+		[[nodiscard]] int const & member() const { return member_; }
 	};
-}
+} //namespace dr
 
 DR_PARAM_DEFINE_STRUCT_DECOMPOSITION(dr::Struct,
 	(a, "int", "", true)
@@ -50,4 +50,4 @@ TEST_CASE("YamlParser 1", "decompose_class") {
 	REQUIRE(foo->member() == 7);
 }
 
-}
+} //namespace dr

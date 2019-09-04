@@ -8,17 +8,17 @@ namespace dr {
 
 TEST_CASE("Yaml Test", "optional") {
     
-	std::optional<int> original{7};
+	std::optional<int> original{7}; //NOLINT
 	std::string encoded = YAML::Dump(encodeYaml(original));
 	YamlResult<std::optional<int>> decoded = parseYaml<std::optional<int>>(YAML::Load(encoded));
     REQUIRE(decoded);
 	REQUIRE(*decoded == original);
 
-	decoded = parseYaml<std::optional<int>>(YAML::Load("7"));
+	decoded = parseYaml<std::optional<int>>(YAML::Load("7")); //NOLINT
     REQUIRE(decoded);
 	REQUIRE(*decoded == original);
 
-	decoded = parseYaml<std::optional<int>>(YAML::Load("[1, 2, 3]"));
+	decoded = parseYaml<std::optional<int>>(YAML::Load("[1, 2, 3]")); //NOLINT
     REQUIRE(!decoded);
 
 	std::optional<int> empty;
@@ -29,4 +29,4 @@ TEST_CASE("Yaml Test", "optional") {
 	REQUIRE(*decoded == empty);
 }
 
-}
+} //namespace dr
