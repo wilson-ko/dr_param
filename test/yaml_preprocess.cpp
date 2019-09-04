@@ -6,10 +6,12 @@
 
 namespace dr {
 
+//NOLINTNEXTLINE
 #define STRINGIFY(TEXT) #TEXT
+//NOLINTNEXTLINE
 #define STRINGIFY_MACRO(TEXT) STRINGIFY(TEXT)
 
-std::string data_path = STRINGIFY_MACRO(TEST_DATA);
+std::string data_path = STRINGIFY_MACRO(TEST_DATA); //NOLINT
 
 TEST_CASE("YamlPreprocess 0", "expand_simple") {
 	YAML::Node node = YAML::Load("thing: !expand $test");
@@ -71,7 +73,7 @@ TEST_CASE("YamlPreprocess 4", "expand_file") {
 
 	node = YAML::Load("thing: !expand $FILE");
 	preprocessYamlWithDirectoryPath(node, "", {});
-	REQUIRE(node["thing"].as<std::string>() == "");
+	REQUIRE(node["thing"].as<std::string>().empty());
 }
 
 TEST_CASE("YamlPreprocess 5", "include") {
@@ -86,4 +88,4 @@ TEST_CASE("YamlPreprocess 6", "include_recursive") {
 	REQUIRE((*node)["a"]["b"]["foo"].as<std::string>() == "bar");
 }
 
-}
+} //namespace dr
