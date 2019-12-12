@@ -3,14 +3,14 @@
 
 #include <dr_util/expand.hpp>
 
-#include <boost/filesystem.hpp>
+#include <filesystem>
 
 namespace dr {
 
 using namespace std::string_literals;
 
 namespace {
-	namespace fs = boost::filesystem;
+	namespace fs = std::filesystem;
 
 	struct PathInfo {
 		fs::path dir;
@@ -40,10 +40,10 @@ namespace {
 		if (!node.IsScalar()) return estd::error{std::errc::invalid_argument, "!include needs a string"};
 
 		// Expand variables in path and normalize path.
-		boost::filesystem::path path = expandVariables(node.as<std::string>(), variables);
+		std::filesystem::path path = expandVariables(node.as<std::string>(), variables);
 		if (path.empty()) return estd::error{std::errc::invalid_argument, "tried to include empty path"};
 		if (path.is_relative()) path = path_info.dir / path;
-		path.normalize();
+		path = std::filesystem::canonical(path);
 
 		// Parse node, process tags and overwrite original.
 		node.SetTag("");
